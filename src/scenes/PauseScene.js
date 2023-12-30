@@ -13,7 +13,6 @@ class PauseScene extends BaseScene {
     create(){
         super.create();
         this.createMenu(this.menu, this.setupMenuEvents.bind(this));
-
     }
 
     setupMenuEvents(menuItem){
@@ -25,7 +24,7 @@ class PauseScene extends BaseScene {
             textGameObject.setStyle({fill: "#fff"});
         });
         textGameObject.on("pointerup", () => {
-            if(menuItem.text && menuItem.text === "Continue") {
+            if(menuItem.scene && menuItem.text === "Continue") {
                 this.scene.stop();
                 this.scene.resume(menuItem.scene);
             } else {

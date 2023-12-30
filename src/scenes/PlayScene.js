@@ -8,16 +8,31 @@ class PlayScene extends BaseScene {
     this.bird = null;
     this.pipes = null;
     this.isPaused = false;
-    this.pipeOpeningRange = [150, 250];
-    this.pipeHorizontalRange = [400, 450];
     this.initialBirdPosition = { x: config.width / 10, y: config.height / 2 };
     this.flapVelocity = 300;
 
     this.score = 0;
     this.scoreText = "";
+
+    this.currentDifficulty = "easy";
+    this.difficulties = {
+      "easy" :{
+        pipeOpeningRange: [150, 250 ],
+        pipeHorizontalRange: [400, 450]
+      },
+      "normal" :{
+        pipeOpeningRange: [150, 200],
+        pipeHorizontalRange: [350, 400]
+      },
+      "hard" :{
+        pipeOpeningRange: [120, 170],
+        pipeHorizontalRange: [250, 300]
+      }
+    }
   }
 
   create() {
+    this.currentDifficulty = 'easy';
     super.create();
     this.createBird();
     this.createPipes();
@@ -26,6 +41,15 @@ class PlayScene extends BaseScene {
     this.createPause();
     this.handleInputs();
     this.listenToEvents();
+    
+    this.anims.create({
+      key: "fly",
+      frames: this.anims.generateFrameNumbers("bird", {start: 8, end: 15}),
+      // default frameRate is 24 fps 
+      frameRate: 8,
+      repeat: -1
+    });
+    this.bird.play("fly");
   }
 
   update() {
@@ -62,25 +86,16 @@ countDown(){
   createBird() {
     this.bird = this.physics.add
       .sprite(this.config.startPosition.x, this.config.startPosition.y, "bird")
-      .setOrigin(0);
+      .setOrigin(0)
+      .setScale(3)
+      .setFlipX(true)
+
+    this.bird.setBodySize(this.bird.width, this.bird.height-10);
     this.bird.body.gravity.y = 550;
     this.bird.setCollideWorldBounds(true);
   }
 
-  createPause(){
-    this.isPaused = false;
-    const pauseButton = this.add.image(this.config.width - 10, this.config.height - 10, "pause")
-        .setOrigin(1)
-        .setScale(3)
-        .setInteractive();
 
-    pauseButton.on("pointerdown", () => {
-      this.isPaused = true;
-        this.physics.pause();
-        this.scene.pause();
-        this.scene.launch("PauseScene");
-    })
-  }
 
   createPipes() {
     this.pipes = this.physics.add.group();
@@ -119,6 +134,21 @@ countDown(){
     });
   }
 
+  createPause(){
+    this.isPaused = false;
+    const pauseButton = this.add.image(this.config.width - 10, this.config.height - 7, "pause")
+        .setOrigin(1)
+        .setScale(3)
+        .setInteractive();
+
+    pauseButton.on("pointerdown", () => {
+      this.isPaused = true;
+        this.physics.pause();
+        this.scene.pause();
+        this.scene.launch("PauseScene");
+    })
+  }
+
   handleInputs() {
     // we must pass the context for event on actions
     this.input.on("pointerdown", this.flap, this);
@@ -135,14 +165,15 @@ countDown(){
   }
 
   placePipe(pipeUpper, pipeLower) {
+    const difficulty = this.difficulties[this.currentDifficulty];
     const rightMostX = this.getRightMostPipe();
-    const pipeVerticalDistance = Phaser.Math.Between(...this.pipeOpeningRange);
+    const pipeVerticalDistance = Phaser.Math.Between(...difficulty.pipeOpeningRange);
     const pipeVerticalPosition = Phaser.Math.Between(
       20,
       this.config.height - pipeVerticalDistance - 20
     );
     const pipeHorizontalDistance = Phaser.Math.Between(
-      ...this.pipeHorizontalRange
+      ...difficulty.pipeHorizontalRange
     );
 
     pipeUpper.x = pipeHorizontalDistance + rightMostX;
@@ -160,9 +191,19 @@ countDown(){
           this.placePipe(...tempPipes);
           this.increaseScore(); 
           this.saveBestScore();
+          this.increaseDifficulty();
         }
       }
     });
+  }
+
+  increaseDifficulty(){
+    if(this.score === 30){
+    this.currentDifficulty = "normal"
+    }
+    if(this.score === 60){
+      this.currentDifficulty = "hard"
+      }
   }
 
   getRightMostPipe() {
