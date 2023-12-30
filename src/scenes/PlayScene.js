@@ -1,11 +1,10 @@
-import Phaser from "phaser";
+import BaseScene from "./BaseScene";
 
 const PIPES_TO_RENDER = 4;
 
-class PlayScene extends Phaser.Scene {
+class PlayScene extends BaseScene {
   constructor(config) {
-    super("PlayScene");
-    this.config = config;
+    super("PlayScene", config);
     this.bird = null;
     this.pipes = null;
     this.pipeOpeningRange = [150, 250];
@@ -18,7 +17,7 @@ class PlayScene extends Phaser.Scene {
   }
 
   create() {
-    this.createBG();
+    super.create();
     this.createBird();
     this.createPipes();
     this.createColliders();
@@ -30,10 +29,6 @@ class PlayScene extends Phaser.Scene {
   update() {
     this.checkGameStatus();
     this.recyclePipes();
-  }
-
-  createBG() {
-    this.add.image(0, 0, "background-sky").setOrigin(0, 0);
   }
 
   createBird() {
