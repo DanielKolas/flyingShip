@@ -12,6 +12,7 @@ class PauseScene extends BaseScene {
 
     create(){
         super.create();
+        this.createStaticBG();
         this.createMenu(this.menu, this.setupMenuEvents.bind(this));
     }
 

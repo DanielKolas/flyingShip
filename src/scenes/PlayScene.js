@@ -6,6 +6,7 @@ class PlayScene extends BaseScene {
   constructor(config) {
     super("PlayScene", config);
     this.bird = null;
+    this.dynamicBG = null;
     this.pipes = null;
     this.isPaused = false;
     this.initialBirdPosition = { x: config.width / 10, y: config.height / 2 };
@@ -34,6 +35,7 @@ class PlayScene extends BaseScene {
   create() {
     this.currentDifficulty = 'easy';
     super.create();
+    this.createDynamicBG();
     this.createBird();
     this.createPipes();
     this.createColliders();
@@ -55,6 +57,7 @@ class PlayScene extends BaseScene {
   update() {
     this.checkGameStatus();
     this.recyclePipes();
+    this.recycleBG();
   }
 
   listenToEvents(){
@@ -83,6 +86,13 @@ countDown(){
   }
 }
 
+createDynamicBG(){
+  this.dynamicBG = this.physics.add
+  .sprite(0, 0, "background-sky")
+  .setOrigin(0)
+  this.dynamicBG.body.velocity.x = -100
+}
+
   createBird() {
     this.bird = this.physics.add
       .sprite(this.config.startPosition.x, this.config.startPosition.y, "bird")
@@ -94,7 +104,6 @@ countDown(){
     this.bird.body.gravity.y = 550;
     this.bird.setCollideWorldBounds(true);
   }
-
 
 
   createPipes() {
@@ -197,11 +206,19 @@ countDown(){
     });
   }
 
+  recycleBG(){
+    if(this.dynamicBG.getBounds().right <= 805){
+      this.dynamicBG.setTexture("background-sky-2")
+      this.dynamicBG.body.position.x = 0;
+    }
+
+
+  }
   increaseDifficulty(){
-    if(this.score === 30){
+    if(this.score === 20){
     this.currentDifficulty = "normal"
     }
-    if(this.score === 60){
+    if(this.score === 40){
       this.currentDifficulty = "hard"
       }
   }

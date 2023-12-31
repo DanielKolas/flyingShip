@@ -3,6 +3,7 @@ import Phaser from "phaser";
 class BaseScene extends Phaser.Scene {
     constructor(key, config){
         super(key);
+        // this.backgroundStatic = null
         this.config = config;
         this.screenCenter = [config.width / 2, config.height / 2];
         this.fontSize = 32;
@@ -11,8 +12,6 @@ class BaseScene extends Phaser.Scene {
     }
 
     create(){
-        this.add.image(0, 0, "background-sky").setOrigin(0, 0);
-
         if(this.config.canGoBack){
             const backButton = this.add.image(this.config.width - 10, this.config.height - 10, "back")
             .setOrigin(1)
@@ -23,6 +22,9 @@ class BaseScene extends Phaser.Scene {
                 this.scene.start("MenuScene");
             })
         }
+    }
+    createStaticBG(){
+        this.add.image(0, 0, "background-sky").setOrigin(0, 0);
     }
 
     createMenu(menu, setUpMenuEvents){
