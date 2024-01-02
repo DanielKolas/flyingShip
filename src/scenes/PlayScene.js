@@ -46,7 +46,7 @@ class PlayScene extends BaseScene {
     
     this.anims.create({
       key: "fly",
-      frames: this.anims.generateFrameNumbers("bird", {start: 8, end: 15}),
+      frames: this.anims.generateFrameNumbers("bird", {start: 0, end: 7}),
       // default frameRate is 24 fps 
       frameRate: 8,
       repeat: -1
@@ -90,14 +90,14 @@ createDynamicBG(){
   this.dynamicBG = this.physics.add
   .sprite(0, 0, "background-sky")
   .setOrigin(0)
-  this.dynamicBG.body.velocity.x = -100
+  this.dynamicBG.body.velocity.x = -15
 }
 
   createBird() {
     this.bird = this.physics.add
       .sprite(this.config.startPosition.x, this.config.startPosition.y, "bird")
       .setOrigin(0)
-      .setScale(3)
+      .setScale(2)
       .setFlipX(true)
 
     this.bird.setBodySize(this.bird.width, this.bird.height-10);
