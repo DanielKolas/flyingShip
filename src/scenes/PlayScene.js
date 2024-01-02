@@ -145,9 +145,9 @@ createDynamicBG(){
 
   createPause(){
     this.isPaused = false;
-    const pauseButton = this.add.image(this.config.width - 10, this.config.height - 7, "pause")
+    const pauseButton = this.add.image(this.config.width - 7, this.config.height - 7, "pause")
         .setOrigin(1)
-        .setScale(3)
+        .setScale(1.4)
         .setInteractive();
 
     pauseButton.on("pointerdown", () => {
