@@ -100,7 +100,7 @@ createDynamicBG(){
       .setScale(2)
       .setFlipX(true)
 
-    this.bird.setBodySize(this.bird.width, this.bird.height-10);
+    this.bird.setBodySize(this.bird.width-1, this.bird.height-15).setOffset(0, 5);
     this.bird.body.gravity.y = 550;
     this.bird.setCollideWorldBounds(true);
   }
