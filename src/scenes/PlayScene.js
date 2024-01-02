@@ -135,11 +135,11 @@ createDynamicBG(){
     const bestScore = localStorage.getItem("bestScore");
     this.scoreText = this.add.text(16, 16, `Score: ${0}`, {
       fontSize: "32px",
-      color: "#000",
+      color: "#FFF",
     });
-    this.add.text(16, 60, `Best score: ${bestScore || 0}`, {
+    this.add.text(16, 55, `Best score: ${bestScore || 0}`, {
       fontSize: "32px",
-      color: "#000",
+      color: "#FFF",
     });
   }
 
@@ -243,7 +243,7 @@ createDynamicBG(){
   }
   gameOver() {
     this.physics.pause();
-    this.bird.setTint(0xff0000);
+    this.bird.setTint(0xb31a25);
 
     this.saveBestScore();
 

@@ -20,7 +20,7 @@ class MenuScene extends BaseScene {
     setupMenuEvents(menuItem){
         const textGameObject = menuItem.textGameObject;
         textGameObject.setInteractive().on("pointerover", () => {
-            textGameObject.setStyle({fill: "#ff0"});
+            textGameObject.setStyle({fill: "#b31a25"});
         });
         textGameObject.on("pointerout", () => {
             textGameObject.setStyle({fill: "#fff"});
