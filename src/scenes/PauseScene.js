@@ -34,7 +34,6 @@ class PauseScene extends BaseScene {
             }
         });
     }
-
 }
 
 export default PauseScene;

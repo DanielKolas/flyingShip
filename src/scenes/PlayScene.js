@@ -52,13 +52,13 @@ class PlayScene extends BaseScene {
       repeat: -1
     });
     this.bird.play("fly");
-  }
+  };
 
   update() {
     this.checkGameStatus();
     this.recyclePipes();
     this.recycleBG();
-  }
+  };
 
   listenToEvents(){
     if(this.pauseEvent) {return;}
@@ -73,25 +73,25 @@ class PlayScene extends BaseScene {
       loop: true
     })
     })
-  }
+  };
 
-countDown(){
-  this.initalTime--;
-  this.countDownText.setText("Fly in: "+ this.initalTime);
-  if(this.initalTime <= 0){
-    this.isPaused = false;
-    this.countDownText.setText("");
-    this.physics.resume();
-    this.timedEvent.remove();
-  }
-}
+  countDown(){
+    this.initalTime--;
+    this.countDownText.setText("Fly in: "+ this.initalTime);
+    if(this.initalTime <= 0){
+      this.isPaused = false;
+      this.countDownText.setText("");
+      this.physics.resume();
+      this.timedEvent.remove();
+    }
+  };
 
 createDynamicBG(){
   this.dynamicBG = this.physics.add
   .sprite(0, 0, "background-sky")
   .setOrigin(0)
   this.dynamicBG.body.velocity.x = -12
-}
+};
 
   createBird() {
     this.bird = this.physics.add
@@ -103,7 +103,7 @@ createDynamicBG(){
     this.bird.setBodySize(this.bird.width-1, this.bird.height-15).setOffset(0, 5);
     this.bird.body.gravity.y = 550;
     this.bird.setCollideWorldBounds(true);
-  }
+  };
 
 
   createPipes() {
@@ -124,11 +124,11 @@ createDynamicBG(){
     }
 
     this.pipes.setVelocityX(-200);
-  }
+  };
 
   createColliders() {
     this.physics.add.collider(this.bird, this.pipes, this.gameOver, null, this);
-  }
+  };
 
   createScore() {
     this.score = 0;
@@ -141,7 +141,7 @@ createDynamicBG(){
       fontSize: "32px",
       color: "#FFF",
     });
-  }
+  };
 
   createPause(){
     this.isPaused = false;
@@ -156,13 +156,13 @@ createDynamicBG(){
         this.scene.pause();
         this.scene.launch("PauseScene");
     })
-  }
+  };
 
   handleInputs() {
     // we must pass the context for event on actions
     this.input.on("pointerdown", this.flap, this);
     this.input.keyboard.on("keydown-SPACE", this.flap, this);
-  }
+  };
 
   checkGameStatus() {
     if (
@@ -171,7 +171,7 @@ createDynamicBG(){
     ) {
       this.gameOver();
     }
-  }
+  };
 
   placePipe(pipeUpper, pipeLower) {
     const difficulty = this.difficulties[this.currentDifficulty];
@@ -189,7 +189,7 @@ createDynamicBG(){
     pipeUpper.y = pipeVerticalPosition;
     pipeLower.x = pipeUpper.x;
     pipeLower.y = pipeUpper.y + pipeVerticalDistance;
-  }
+  };
 
   recyclePipes() {
     const tempPipes = [];
@@ -204,16 +204,15 @@ createDynamicBG(){
         }
       }
     });
-  }
+  };
 
   recycleBG(){
     if(this.dynamicBG.getBounds().right <= 805){
       this.dynamicBG.setTexture("background-sky-2")
       this.dynamicBG.body.position.x = 0;
     }
+  };
 
-
-  }
   increaseDifficulty(){
     if(this.score === 20){
     this.currentDifficulty = "normal"
@@ -221,7 +220,7 @@ createDynamicBG(){
     if(this.score === 40){
       this.currentDifficulty = "hard"
       }
-  }
+  };
 
   getRightMostPipe() {
     let rightMostX = 0;
@@ -231,7 +230,7 @@ createDynamicBG(){
     });
 
     return rightMostX;
-  }
+  };
 
   saveBestScore() {
     const bestScoreText = localStorage.getItem("bestScore");
@@ -240,7 +239,8 @@ createDynamicBG(){
     if (!bestScore || this.score > bestScore) {
       localStorage.setItem("bestScore", this.score);
     }
-  }
+  };
+
   gameOver() {
     this.physics.pause();
     this.bird.setTint(0xb31a25);
@@ -254,7 +254,7 @@ createDynamicBG(){
       },
       loop: false,
     });
-  }
+  };
 
   flap() {
     if( this.isPaused) {return;}
@@ -264,7 +264,7 @@ createDynamicBG(){
   increaseScore() {
     this.score++;
     this.scoreText.setText(`Score: ${this.score}`);
-  }
+  };
 }
 
 export default PlayScene;

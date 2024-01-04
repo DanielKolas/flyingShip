@@ -9,11 +9,9 @@ class ScoreScene extends BaseScene {
         this.createStaticBG();
         super.create();
 
-
         const bestScore = localStorage.getItem("bestScore");
         this.add.text(...this.screenCenter, `Best score: ${bestScore || 0}`, this.fontOptions).setOrigin(0.5);
     }
-
 }
 
 export default ScoreScene;
