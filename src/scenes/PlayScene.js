@@ -90,7 +90,7 @@ createDynamicBG(){
   this.dynamicBG = this.physics.add
   .sprite(0, 0, "background-sky")
   .setOrigin(0)
-  this.dynamicBG.body.velocity.x = -15
+  this.dynamicBG.body.velocity.x = -12
 }
 
   createBird() {
