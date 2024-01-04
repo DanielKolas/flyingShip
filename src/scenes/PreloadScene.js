@@ -7,7 +7,6 @@ class PreloadScene extends Phaser.Scene {
 
     preload(){
         this.load.image("background-sky", "assets/background.png");
-        this.load.image("background-sky-2", "assets/background2.png");
         this.load.spritesheet("bird", "assets/birdAnimation.png", {
             frameWidth: 30, frameHeight: 28
         });
