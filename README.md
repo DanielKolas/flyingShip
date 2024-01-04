@@ -1,26 +1,28 @@
-# phaser-webpack-boilerplate-new
+# Phaser: Flying Bird
+made by: Daniel Kolas, January 2024
+
+## General info
+This is a simple flying bird app, based on the Flappy Bird game. I made my own graphics and decided to learn pixel art games, starting with this one.
+
+## Technologies
+The project is created with:
+* HTML
+* CSS
+* JS
+* Node.js
+* Phaser
+* Adobe Photoshop
 
 ## Setup
-
-1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
-
-2. Clone this repository or Download
-
-3. Navigate into the project directory
-
-```bash
-  $ cd phaser-webpack-boilerplate-new
+To run this project, install it locally using npm:
+```
+$ cd ../lorem
+$ npm install
+$ npm run dev
 ```
 
-4. Install the requirements
-
-```bash
-  $ npm install
-```
-
-5. Run the app
-
-```bash
-  $ npm run dev
-```
-# flyingShip
+## Features
+* Game initial files
+* Physics, collisions and score system
+* Multiple scenes
+* Pixel art
